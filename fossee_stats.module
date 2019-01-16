@@ -739,7 +739,7 @@ function get_data_for_chart_allproject($sub_type) {
                 if ($foss_detail->foss_name != 'Python') {
                     db_set_active($foss_detail->foss_name); //Active other database
                     //For TBC
-                    if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                    if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                         $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0");
                     } 
                     else {
@@ -838,7 +838,7 @@ function list_tbc_and_lm_detail($String, $foss_type, $sub_type, $status, $startd
         if ($foss_type != NULL) {
             if ($foss_type != 'Python') {
                 //For TBC
-                if ($foss_type != 'eSim' && $foss_type != 'OpenModelica'  && $foss_type != 'OpenFOAM' && $foss_type != 'OR-Tools') {
+                if ($foss_type != 'eSim' && $foss_type != 'OpenModelica'  && $foss_type != 'OpenFOAM' && $foss_type != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_type != 'DWSIM') {
                         if ($status == "completed") {
                             $query2 = db_query("SELECT pe.book as book,pe.author as author,pe.publisher as publisher,pe.year as year,pe.id as id FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate", array(
@@ -1080,7 +1080,7 @@ function get_data_for_piechart_selectedproject($foss_type, $sub_type, $startdate
                 $rows = array();
                 db_set_active($foss_detail->foss_name); //Active other database
                 //For TBC
-                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate", array(
                             ':city' => $cityname,
@@ -1257,7 +1257,7 @@ function get_data_for_chart_selectedproject($foss_type, $sub_type, $startdate, $
                 $rows = array();
                 db_set_active($foss_detail->foss_name); //Active other database
                 //For TBC
-                if ($foss_detail->foss_name != 'eSim'  && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim'  && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query2 = db_query("SELECT COUNT( pe.book ) AS book_count ,FROM_UNIXTIME(po.completion_date, '%Y') AS year FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate Group by FROM_UNIXTIME(po.completion_date, '%Y')", array(
                             ':city' => $cityname,
@@ -2445,7 +2445,7 @@ function get_tabledata_TBC_or_LM($sub_type, $startdate, $enddate) {
             db_set_active($foss_type);
             if ($foss_detail->foss_name != 'Python') {
                 db_set_active($foss_detail->foss_name); //Active other database
-                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0 AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate ", array(
                             ':startdate' => $startdate,
@@ -2474,7 +2474,7 @@ function get_tabledata_TBC_or_LM($sub_type, $startdate, $enddate) {
                  /* For setting completion date for pending TBC and LM more */
       $pending_enddate = date('Y-m-d', strtotime("+5 months", strtotime( $enddate)));
 
-                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica'  && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica'  && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query3 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status <>3 AND pe.approval_status =1 AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate ", array(
                             ':startdate' => $startdate,
@@ -2649,7 +2649,7 @@ function get_tabledata_selectedFoss_TBC_LM($foss_type, $sub_type, $status, $star
             db_set_active($foss_type);
             if ($foss_detail->foss_name != 'Python') {
                 db_set_active($foss_detail->foss_name); //Active other database
-                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate", array(
                             ':city' => $cityname,
@@ -2696,7 +2696,7 @@ function get_tabledata_selectedFoss_TBC_LM($foss_type, $sub_type, $status, $star
                         $pending_enddate = date('Y-m-d', strtotime("+5 months", strtotime( $enddate)));
 
 
-                if ($foss_detail->foss_name != 'eSim'  && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim'  && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query3 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status <> 3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate ", array(
                             ':city' => $cityname,
@@ -2877,7 +2877,7 @@ function get_tabledata_selectedFoss_TBC_LM($foss_type, $sub_type, $status, $star
             db_set_active($foss_type);
             if ($foss_detail->foss_name != 'Python') {
                 db_set_active($foss_detail->foss_name); //Active other database
-                if ($foss_detail->foss_name != 'eSim'  && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim'  && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate", array(
                             ':city' => $cityname,
@@ -3019,7 +3019,7 @@ function get_tabledata_selectedFoss_TBC_LM($foss_type, $sub_type, $status, $star
             db_set_active($foss_type);
             if ($foss_detail->foss_name != 'Python') {
                 db_set_active($foss_detail->foss_name); //Active other database
-                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools') {
+                if ($foss_detail->foss_name != 'eSim' && $foss_detail->foss_name != 'OpenModelica' && $foss_detail->foss_name != 'OpenFOAM' && $foss_detail->foss_name != 'OR-Tools' && $foss_detail->foss_name != 'R') {
                     if ($foss_detail->foss_name != 'DWSIM') {
                         $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status <> 3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate", array(
                             ':city' => $cityname,
