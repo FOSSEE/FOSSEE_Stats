@@ -838,7 +838,7 @@ function list_tbc_and_lm_detail($String, $foss_type, $sub_type, $status, $startd
         if ($foss_type != NULL) {
             if ($foss_type != 'Python') {
                 //For TBC
-                if ($foss_type != 'eSim' && $foss_type != 'OpenModelica'  && $foss_type != 'OpenFOAM' && $foss_type != 'OR-Tools' && $foss_detail->foss_name != 'R') {
+                if ($foss_type != 'eSim' && $foss_type != 'OpenModelica'  && $foss_type != 'OpenFOAM' && $foss_type != 'OR-Tools' && $foss_type != 'R') {
                     if ($foss_type != 'DWSIM') {
                         if ($status == "completed") {
                             $query2 = db_query("SELECT pe.book as book,pe.author as author,pe.publisher as publisher,pe.year as year,pe.id as id FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND pe.category>0 AND po.city LIKE :city AND po.state LIKE :state AND po.country LIKE :country AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate", array(
