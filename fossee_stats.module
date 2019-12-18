@@ -6,6 +6,10 @@ function fossee_stats_permission() {
             "title" => t("Access fossee_stats"),
             "description" => t("Allows users to view fossee stats.")
         ),
+        "view dashboard" => array(
+            "title" => t("View Dashboard"),
+            "description" => t("Allows users to view FOSSEE Dashboard.")
+        ),
         "view workshop" => array(
             "title" => t("View Workshop"),
             "description" => t("Allows users to view workshop.")
@@ -58,6 +62,18 @@ function fossee_stats_menu() {
         "access arguments" => array(
             "access fossee_stats"
         ),
+        "type" => MENU_NORMAL_ITEM
+    );
+    $items["fossee-dashboard"] = array(
+        "title" => "FOSSEE Dashboard",
+        "page callback" => "drupal_get_form",
+        "page arguments" => array(
+            "fossee_dashboard_form"
+        ),
+        "access arguments" => array(
+            "view dashboard"
+        ),
+        'file' => 'fossee-dashboard.inc',
         "type" => MENU_NORMAL_ITEM
     );
     //Fetch the list of TBC and LM which comes after filter is applied.
