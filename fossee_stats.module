@@ -2476,7 +2476,7 @@ function get_tabledata_TBC_or_LM($sub_type, $startdate, $enddate) {
                     }
                 } 
                 else {
-                    $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal } po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate ", array(
+                    $query2 = db_query("SELECT COUNT( pe.book ) AS book_count FROM {textbook_companion_preference} pe LEFT JOIN {textbook_companion_proposal} po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 AND FROM_UNIXTIME(po.completion_date) >= :startdate AND FROM_UNIXTIME(po.completion_date) <= :enddate ", array(
                         ':startdate' => $startdate,
                         ':enddate' => $enddate
                     ));
