@@ -53,6 +53,20 @@ function fossee_stats_permission() {
 function fossee_stats_menu() {
     $items = array();
     //Load main page
+    $items['api/fossee-stats/all-time'] = array(
+    'access callback' => true,
+    'page callback' => 'all_time_fossee_stats_json',
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'fossee_stats_json.inc',
+    "type" => MENU_CALLBACK
+  );
+    $items['api/fossee-stats'] = array(
+    'access callback' => true,
+    'page callback' => 'fossee_stats_json',
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'fossee_stats_json.inc',
+    "type" => MENU_CALLBACK
+    );
     $items["fossee-stats"] = array(
         "title" => "FOSSEE STATS",
         "page callback" => "drupal_get_form",
