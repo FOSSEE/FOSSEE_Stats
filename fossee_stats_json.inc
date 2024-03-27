@@ -18,7 +18,7 @@ function all_time_fossee_stats_json() {
       db_set_active($foss_type);         
 if ($foss_detail->foss_name != 'Scilab' || $foss_detail->foss_name != 'R') {  
    db_set_active($foss_type);
-   $query2 = db_query("SELECT COUNT( pe.book ) as book_count, FROM_UNIXTIME(po.completion_date, '%Y') as year_completion FROM textbook_companion_preference pe LEFT JOIN textbook_companion_proposal po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 and from_unixtime(po.completion_date, '%Y') >= '2019' group by from_unixtime(po.completion_date, '%Y')");
+   $query2 = db_query("SELECT COUNT( pe.book ) as book_count, FROM_UNIXTIME(po.completion_date, '%Y') as year_completion FROM textbook_companion_preference pe LEFT JOIN textbook_companion_proposal po ON pe.proposal_id = po.id WHERE po.proposal_status =3 AND pe.approval_status =1 and from_unixtime(po.completion_date, '%Y-%m-%d') between '2019-01-01' and '2024-03-31' group by from_unixtime(po.completion_date, '%Y')");
    while($book_count_data = $query2->fetchAll()){
       //var_dump($book_count_data);die;
       $book_data[$foss_type] = array($book_count_data);
@@ -34,7 +34,7 @@ if ($foss_detail->foss_name != 'Scilab' || $foss_detail->foss_name != 'R') {
       LEFT JOIN textbook_companion_book_main_subcategories tcbm ON pe.id = tcbm.pref_id
       LEFT JOIN list_of_category loc ON tcbm.main_category = loc.category_id
       WHERE po.proposal_status = 3 AND pe.approval_status = 1 AND pe.category>0
-      AND pe.id = tcbm.pref_id and from_unixtime(po.completion_date, '%Y') >= '2019' group by from_unixtime(po.completion_date, '%Y')");
+      AND pe.id = tcbm.pref_id and from_unixtime(po.completion_date, '%Y-%m-%d') between '2019-01-01' and '2024-03-31' group by from_unixtime(po.completion_date, '%Y')");
    while($book_count_data = $query3->fetchAll()){
       //var_dump($book_count_data);die;
       $book_data[$foss_type] .= array($book_count_data);
@@ -57,7 +57,7 @@ $query = db_select('foss_type');
          //var_dump($foss_detail->foss_name);die;
             $foss_type = $foss_detail->foss_name;
       db_set_active($foss_type);         
-   $query2 = db_query("SELECT COUNT(id) as lab_count, from_unixtime(approval_date, '%Y') as year_completion FROM lab_migration_proposal WHERE approval_status = '3' and from_unixtime(approval_date, '%Y') >= '2019' GROUP BY from_unixtime(approval_date, '%Y') order by approval_date ASC");
+   $query2 = db_query("SELECT COUNT(id) as lab_count, from_unixtime(approval_date, '%Y') as year_completion FROM lab_migration_proposal WHERE approval_status = '3' and from_unixtime(approval_date, '%Y-%m-%d') between '2019-01-01' and '2024-03-31' GROUP BY from_unixtime(approval_date, '%Y') order by approval_date ASC");
    while($book_count_data = $query2->fetchAll()){
       //var_dump($book_count_data);die;
       $book_data[$foss_type] = array($book_count_data);
@@ -85,7 +85,7 @@ else if($activity == 'Niche-activities'){
                $table_name = $activity_detail->activity_table_details;
          
           db_set_active($foss_type);
-            $query2 = db_query("SELECT COUNT(project_title) as projects_completed_count, from_unixtime(actual_completion_date, '%Y') as year_completion FROM " . $table_name . " WHERE approval_status = 3 AND from_unixtime(actual_completion_date, '%Y') >= '2019' GROUP BY from_unixtime(actual_completion_date, '%Y') order by actual_completion_date ASC"); 
+            $query2 = db_query("SELECT COUNT(project_title) as projects_completed_count, from_unixtime(actual_completion_date, '%Y') as year_completion FROM " . $table_name . " WHERE approval_status = 3 AND from_unixtime(actual_completion_date, '%Y-%m-%d') between '2019-01-01' and '2024-03-31' GROUP BY from_unixtime(actual_completion_date, '%Y') order by actual_completion_date ASC"); 
                while($book_count_data = $query2->fetchAll()){
                   $activity_data[$foss_type . ' ' . $activity_detail->activity_name] = $book_count_data;
                }
