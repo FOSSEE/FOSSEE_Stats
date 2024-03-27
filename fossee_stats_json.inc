@@ -2,8 +2,8 @@
 function all_time_fossee_stats_json() {
    $activity = arg(3);
    //var_dump($activity);die;
-   $page_output =  "";
-   $page_output .= t("Fetched at ") . time();
+   //$page_output =  "";
+   //$page_output .= t("Fetched at ") . time();
    if($activity == 'TBC'){
    $query = db_select('foss_type');
        $query->fields('foss_type');
@@ -43,6 +43,7 @@ if ($foss_detail->foss_name != 'Scilab' || $foss_detail->foss_name != 'R') {
   //var_dump($book_data);die;
  }
  } //$book_data[$foss_type] .= $book_data; 
+ $book_data['fetched at'] .= time();
  drupal_json_output($book_data);
 }
 else if($activity == 'LM'){
@@ -63,7 +64,8 @@ $query = db_select('foss_type');
       //var_dump($book_data);die;
   }
   //var_dump($book_data);die;
- } //$book_data[$foss_type] .= $book_data; 
+ } 
+ $book_data['fetched at'] .= time(); 
 drupal_json_output($book_data);
 }
 else if($activity == 'Niche-activities'){
@@ -93,11 +95,12 @@ else if($activity == 'Niche-activities'){
 }
          
          }
+         $activity_data['fetched at'] .=   time();
 $book_data  = array($activity_data);
  drupal_json_output($book_data);
  //exit;
          }
-return $page_output;
+//return $page_output;
 
 }
 function fossee_stats_json() {
@@ -127,8 +130,6 @@ function fossee_stats_json() {
          break;
    }
    //var_dump($activity);die;
-   $page_output =  "";
-   $page_output .= t("Fetched at ") . time();
    if($activity == 'TBC'){
    $query = db_select('foss_type');
        $query->fields('foss_type');
@@ -168,6 +169,7 @@ if ($foss_detail->foss_name != 'Scilab' || $foss_detail->foss_name != 'R') {
   //var_dump($book_data);die;
  }
  } //$book_data[$foss_type] .= $book_data; 
+ $book_data['fetched at'] .= time(); 
  drupal_json_output($book_data);
 }
 else if($activity == 'LM'){
@@ -189,6 +191,7 @@ $query = db_select('foss_type');
   }
   //var_dump($book_data);die;
  } //$book_data[$foss_type] .= $book_data; 
+ $book_data['fetched at'] .= time(); 
 drupal_json_output($book_data);
 }
 else if($activity == 'Niche-activities'){
@@ -218,6 +221,7 @@ else if($activity == 'Niche-activities'){
 }
          
          }
+        $activity_data['fetched at'] .=   time(); 
 $book_data  = array($activity_data);
  drupal_json_output($book_data);
  //exit;
