@@ -1,4 +1,5 @@
 <?php
+
 function all_time_fossee_stats_json() {
    $activity = arg(3);
    //var_dump($activity);die;
@@ -58,8 +59,29 @@ while($state_result = $state_query->fetchObject()){
 db_set_active();
  }
  } //$book_data[$foss_type] .= $book_data; 
- $book_data['fetched at'] .= time();
- drupal_json_output($book_data);
+ foreach($book_data as $state_name => $state_code_array){
+   foreach($state_code_array as $state_code_key => $city_array){
+      foreach($city_array as $city_name => $foss_array){
+         /*$state_data["city_name"] = $city_name;
+         $activity_array;
+      
+      $state_data["state_lgd_code"] = $state_code_key;
+   
+   $state_data["state_name"] = $state_name;*/
+   $state_data[] = array(
+      "state_name" => $state_name,
+      "state_lgd_code" => $state_code_key,
+      "city_name" => $city_name,
+      "foss_type" => $foss_array
+   );
+   //$state_data = array_combine($state_data, $foss_array);
+
+}
+}
+}
+ $state_data[]['fetched at'] .= time(); 
+ 
+ drupal_json_output($state_data);
 }
 else if($activity == 'LM'){
 $query = db_select('foss_type');
@@ -86,8 +108,29 @@ while($state_result = $state_query->fetchObject()){
 }
 db_set_active();
  } 
- $book_data['fetched at'] .= time(); 
-drupal_json_output($book_data);
+ foreach($book_data as $state_name => $state_code_array){
+   foreach($state_code_array as $state_code_key => $city_array){
+      foreach($city_array as $city_name => $foss_array){
+         /*$state_data["city_name"] = $city_name;
+         $activity_array;
+      
+      $state_data["state_lgd_code"] = $state_code_key;
+   
+   $state_data["state_name"] = $state_name;*/
+   $state_data[] = array(
+      "state_name" => $state_name,
+      "state_lgd_code" => $state_code_key,
+      "city_name" => $city_name,
+      "foss_type" => $foss_array
+   );
+   //$state_data = array_combine($state_data, $foss_array);
+
+}
+}
+}
+ $state_data[]['fetched at'] .= time(); 
+ 
+ drupal_json_output($state_data);
 }
 else if($activity == 'Niche-activities'){
    $query = db_select('foss_type');
@@ -110,22 +153,48 @@ from_unixtime(actual_completion_date, '%Y') as year_completion
  from_unixtime(actual_completion_date, '%Y-%m-%d') between '2019-01-01' and '2024-03-31'
  GROUP BY state,city, year_completion order by state ASC", array(":state" => $state_result->state_name));
                while($book_result = $query2->fetchObject()){
-               $book_data[$book_result->state][$state_result->state_lgd_code][$book_result->city][$foss_type . ' ' . $activity_detail->activity_name][] = 
-                array(
+               $book_data[$book_result->state][$state_result->state_lgd_code][$book_result->city][$foss_type . ' ' . $activity_detail->activity_name][] = array(
+                  /*"state_name" => $book_result->state,
+                  "state lgd code" => $state_result->state_lgd_code,
+                  "city" => $book_result->city,*/
+                 // $foss_type . ' ' . $activity_detail->activity_name => array(
                   "count" => $book_result->projects_completed_count,
-                  "year_of_completion" => $book_result->year_completion,
-                  );
-               //$state_data[] = array("state_name" =>$book_result->state);
-               //$activity_data[$foss_type . ' ' . $activity_detail->activity_name][$book_result->state] = $book_result;
-      }
+                  "year_of_completion" => $book_result->year_completion
+                  //)
+                  );              
+               /*foreach($book_data as $k =>$a){
+    $book_data["state_name"] = json_encode($a);
+}*/
+//$activity_data = $book_data;
+}
+//$activity_data[$foss_type] = array($book_data);
       db_set_active(); 
+
 }
 }
-         $state_data = $book_data;
-         }
-        $state_data['fetched at'] .=   time(); 
-$book_data  = $state_data;
- drupal_json_output($book_data);
+foreach($book_data as $state_name => $state_code_array){
+   foreach($state_code_array as $state_code_key => $city_array){
+      foreach($city_array as $city_name => $foss_array){
+         /*$state_data["city_name"] = $city_name;
+         $activity_array;
+      
+      $state_data["state_lgd_code"] = $state_code_key;
+   
+   $state_data["state_name"] = $state_name;*/
+   $state_data[] = array(
+      "state_name" => $state_name,
+      "state_lgd_code" => $state_code_key,
+      "city_name" => $city_name,
+      "activity"=>$foss_array
+   );
+
+}
+}
+}
+}
+
+$state_data[]['fetched at'] .=  time();
+ drupal_json_output($state_data);
 
          }
 //return $page_output;
@@ -187,8 +256,29 @@ db_set_active();
 }
  }
  } //$book_data[$foss_type] .= $book_data; 
- $book_data['fetched at'] .= time(); 
- drupal_json_output($book_data);
+  foreach($book_data as $state_name => $state_code_array){
+   foreach($state_code_array as $state_code_key => $city_array){
+      foreach($city_array as $city_name => $foss_array){
+         /*$state_data["city_name"] = $city_name;
+         $activity_array;
+      
+      $state_data["state_lgd_code"] = $state_code_key;
+   
+   $state_data["state_name"] = $state_name;*/
+   $state_data[] = array(
+      "state_name" => $state_name,
+      "state_lgd_code" => $state_code_key,
+      "city_name" => $city_name,
+      "foss_type" => $foss_array
+   );
+   //$state_data = array_combine($state_data, $foss_array);
+
+}
+}
+}
+ $state_data[]['fetched at'] .= time(); 
+ 
+ drupal_json_output($state_data);
 }
 else if($activity == 'LM'){
 $query = db_select('foss_type');
@@ -208,18 +298,40 @@ from_unixtime(approval_date, '%Y') as year_completion FROM lab_migration_proposa
  GROUP BY month_of_year, state,city, year_completion order by state ASC", array(":state" => $state_result->state_name));
    while($book_count_data = $query2->fetchObject()){
       //var_dump($book_count_data);die;
-      $book_data[$book_count_data->state][$state_result->state_lgd_code][$book_count_data->city][$foss_type][] = array(
+      $book_data[$book_count_data->state][$state_result->state_lgd_code][$book_count_data->city][$foss_type] = array(
          "count" => $book_count_data->lab_count,
-         "month_of_year" => $book_count_data->month_of_year
+         "month_of_year" => $book_count_data->month_of_year,
+         "year_of_completion" => $book_count_data->year_completion
       );
-      //var_dump($book_data);die;
+      //var_dump(array_values($book_data));die;
   }
 }
 db_set_active();
   //var_dump($book_data);die;
  } //$book_data[$foss_type] .= $book_data; 
- $book_data['fetched at'] .= time(); 
-drupal_json_output($book_data);
+ foreach($book_data as $state_name => $state_code_array){
+   foreach($state_code_array as $state_code_key => $city_array){
+      foreach($city_array as $city_name => $foss_array){
+         /*$state_data["city_name"] = $city_name;
+         $activity_array;
+      
+      $state_data["state_lgd_code"] = $state_code_key;
+   
+   $state_data["state_name"] = $state_name;*/
+   $state_data[] = array(
+      "state_name" => $state_name,
+      "state_lgd_code" => $state_code_key,
+      "city_name" => $city_name,
+      "foss_type" => $foss_array
+   );
+   //$state_data = array_combine($state_data, $foss_array);
+
+}
+}
+}
+
+ $state_data[]['fetched at'] .= time(); 
+drupal_json_output($state_data);
 }
 else if($activity == 'Niche-activities'){
    $query = db_select('foss_type');
@@ -228,39 +340,65 @@ else if($activity == 'Niche-activities'){
         $result = $query->execute();     //var_dump($result->fetchObject());die;
         while($foss_detail = $result->fetchObject()) {
                $foss_type = $foss_detail->foss_name;
-            $query = db_query("SELECT * FROM foss_niche_activites a WHERE a.foss_id=:foss_id and is_active=1", array(
+            $state_query = db_query("SELECT * FROM states_lgd_code");
+while($state_result = $state_query->fetchObject())
+{
+   $query = db_query("SELECT * FROM foss_niche_activites a WHERE a.foss_id=:foss_id and is_active=1", array(
                ":foss_id" => $foss_detail->id
             ));
             while($activity_detail = $query->fetchObject()){
                $table_name = $activity_detail->activity_table_details;
-               $state_query = db_query("SELECT * FROM states_lgd_code");
-while($state_result = $state_query->fetchObject()){
-          db_set_active($foss_type);
+             db_set_active($foss_type);
             $query2 = db_query("SELECT COUNT(project_title) as projects_completed_count, state, city,
  from_unixtime(actual_completion_date, '%m') as month_of_year,
 from_unixtime(actual_completion_date, '%Y') as year_completion
  FROM " . $table_name . " WHERE approval_status = 3 and state not like '' and state not like 0 and city not like ''  and city not like 0 and state=:state and 
  from_unixtime(actual_completion_date, '%Y') = " . $year_of_completion . "
  GROUP BY month_of_year, state,city, year_completion order by state ASC", array(":state" => $state_result->state_name));
+            //var_dump($query2->rowCount());die;
                while($book_result = $query2->fetchObject()){
-               $book_data[$book_result->state][$state_result->state_lgd_code][$book_result->city][$foss_type . ' ' . $activity_detail->activity_name][] = 
-                array(
+               $book_data[$book_result->state][$state_result->state_lgd_code][$book_result->city][$foss_type . ' ' . $activity_detail->activity_name][] = array(
+                  /*"state_name" => $book_result->state,
+                  "state lgd code" => $state_result->state_lgd_code,
+                  "city" => $book_result->city,*/
+                 // $foss_type . ' ' . $activity_detail->activity_name => array(
                   "count" => $book_result->projects_completed_count,
                   "month_of_year" => $book_result->month_of_year,
-                  );
-               //$state_data[] = array("state_name" =>$book_result->state);
-               //$activity_data[$foss_type . ' ' . $activity_detail->activity_name][$book_result->state] = $book_result;
-      }
+                  "year_of_completion" => $book_result->year_completion
+                  //)
+                  );              
+               /*foreach($book_data as $k =>$a){
+    $book_data["state_name"] = json_encode($a);
+}*/
+//$activity_data = $book_data;
+}
+//$activity_data[$foss_type] = array($book_data);
       db_set_active(); 
+
 }
 }
-         $state_data = $book_data;
-         }
-        $state_data['fetched at'] .=   time(); 
-$book_data  = $state_data;
- drupal_json_output($book_data);
- //exit;
-         }
+foreach($book_data as $state_name => $state_code_array){
+   foreach($state_code_array as $state_code_key => $city_array){
+      foreach($city_array as $city_name => $foss_array){
+         /*$state_data["city_name"] = $city_name;
+         $activity_array;
+      
+      $state_data["state_lgd_code"] = $state_code_key;
+   
+   $state_data["state_name"] = $state_name;*/
+   $state_data[] = array(
+      "state_name" => $state_name,
+      "state_lgd_code" => $state_code_key,
+      "city_name" => $city_name,
+      "activity"=>$foss_array
+   );
 
+}
+}
+}
+}
 
+$state_data[]['fetched at'] .=  time();
+ drupal_json_output($state_data);
+}
 }
