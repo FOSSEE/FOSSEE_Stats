@@ -1,5 +1,4 @@
 <?php
-
 function fossee_stats_permission() {
     return array(
         "access fossee_stats" => array(
